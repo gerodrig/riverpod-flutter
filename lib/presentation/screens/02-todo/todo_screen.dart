@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:river_app/config/config.dart';
 import 'package:river_app/domain/entities/todo.dart';
-import 'package:river_app/presentation/providers/providers.dart';
-import 'package:river_app/presentation/providers/todos_provider.dart';
+// import 'package:river_app/presentation/providers/providers.dart';
+// import 'package:river_app/presentation/providers/todos_provider.dart';
+import 'package:river_app/presentation/providers/todos_provider_generated.dart';
 
 class TodoScreen extends ConsumerWidget {
   const TodoScreen({super.key});
@@ -19,7 +21,9 @@ class TodoScreen extends ConsumerWidget {
       floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add),
           onPressed: () {
-            ref.read(todosProvider.notifier).addTodo();
+            ref
+                .read(todosgProvider.notifier)
+                .addTodo(RandomGenerator.getRandomName()); //add new todo
           }),
     );
   }
@@ -30,8 +34,8 @@ class _TodosView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final currentFilter = ref.watch(todoFilterProvider);
-    final todos = ref.watch(filteredTodosProvider);
+    final currentFilter = ref.watch(todoCurrentFilterProvider);
+    final todos = ref.watch(filteredTodosgProvider);
 
     return Column(
       children: [
@@ -41,15 +45,17 @@ class _TodosView extends ConsumerWidget {
         ),
         SegmentedButton(
             segments: const [
-              ButtonSegment(value: TodoFilter.all, icon: Text('Todos')),
-              ButtonSegment(value: TodoFilter.completed, icon: Text('Guests')),
-              ButtonSegment(value: TodoFilter.pending, icon: Text('Pending')),
+              ButtonSegment(value: FilterType.all, icon: Text('Todos')),
+              ButtonSegment(value: FilterType.completed, icon: Text('Guests')),
+              ButtonSegment(value: FilterType.pending, icon: Text('Pending')),
             ],
-            selected: <TodoFilter>{
+            selected: <FilterType>{
               currentFilter
             },
             onSelectionChanged: (value) {
-              ref.read(todoFilterProvider.notifier).state = value.first;
+              ref
+                  .read(todoCurrentFilterProvider.notifier)
+                  .setCurrentFilter(value.first);
             }),
         Expanded(
           child: ListView.builder(
@@ -64,7 +70,7 @@ class _TodosView extends ConsumerWidget {
                     value: todo.done,
                     onChanged: (value) {
                       // print('onChanged: $value');
-                      ref.read(todosProvider.notifier).toggleTodo(todo.id);
+                      ref.read(todosgProvider.notifier).toggleTodo(todo.id);
                     });
               }),
         ),

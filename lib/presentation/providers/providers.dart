@@ -5,3 +5,7 @@ export 'simple_name_provider.dart';
 export 'todo_provider.dart';
 export 'todos_provider.dart';
 export 'todos_change_notifier_provider.dart';
+
+export 'hello_world_provider.dart';
+
+export './stream_provider.dart';

@@ -1,9 +1,13 @@
 import 'package:go_router/go_router.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+// import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:river_app/presentation/screens/screens.dart';
 
-final appRouterProvider = Provider<GoRouter>((ref) {
+part 'app_router.g.dart';
+
+@riverpod
+GoRouter appRouter(AppRouterRef ref) {
   return GoRouter(
       //initialLocation: '/',
       routes: [
@@ -32,8 +36,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             builder: (context, state) => const PokemonScreen(),
             name: 'Future Provider'),
         GoRoute(
+            path: '/family-future-provider',
+            builder: (context, state) => const FamilyFutureScreen(),
+            name: 'Family Future Provider'),
+        GoRoute(
             path: '/stream-provider',
-            builder: (context, state) => const StreamScreen(),
+            builder: (context, state) => const StreamProviderScreen(),
             name: 'Stream Provider'),
         GoRoute(
             path: '/state-notifier-provider',
@@ -44,4 +52,4 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             builder: (context, state) => const ChangeNotifierScreen(),
             name: 'Change Notifiers Provider'),
       ]);
-});
+}

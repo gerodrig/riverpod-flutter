@@ -6,4 +6,5 @@ export 'package:river_app/presentation/screens/02-todo/todo_screen.dart';
 export 'package:river_app/presentation/screens/03-stream-provider/stream_screen.dart';
 export 'package:river_app/presentation/screens/04-state-notifier-provider/todos_screen.dart';
 export 'package:river_app/presentation/screens/05-change-notifier/change_notifier_screen.dart';
+export 'package:river_app/presentation/screens/06-family-future-provder/family_future_screen.dart';
 export 'package:river_app/presentation/screens/home/home_screen.dart';

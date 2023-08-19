@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:river_app/presentation/providers/state_provider.dart';
+// import 'package:river_app/presentation/providers/state_provider.dart';
+import 'package:river_app/presentation/providers/state_providers.dart';
 
 class StateProviderScreen extends ConsumerWidget {
   const StateProviderScreen({super.key});
@@ -8,9 +9,9 @@ class StateProviderScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final titleStyle = Theme.of(context).textTheme;
-    final name = ref.watch(randomNameProvider);
-    final counter = ref.watch(counterProvider);
-    final isDarkMode = ref.watch(isDarkModeProvider);
+    final name = ref.watch(userNamegProvider);
+    final counter = ref.watch(countergProvider);
+    final isDarkMode = ref.watch(darkmodegProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -22,9 +23,7 @@ class StateProviderScreen extends ConsumerWidget {
             const Spacer(flex: 1),
             IconButton(
                 onPressed: () {
-                  ref.read(isDarkModeProvider.notifier).update((state) {
-                    return !state;
-                  });
+                  ref.read(darkmodegProvider.notifier).toggleDarkmode();
                 },
                 icon: Icon(
                     isDarkMode
@@ -34,7 +33,7 @@ class StateProviderScreen extends ConsumerWidget {
             Text(name, style: titleStyle.titleMedium),
             TextButton.icon(
                 onPressed: () {
-                  ref.read(counterProvider.notifier).update((state) => state++);
+                  ref.read(countergProvider.notifier).increment();
                 },
                 icon: const Icon(Icons.add),
                 label: Text(
@@ -47,10 +46,8 @@ class StateProviderScreen extends ConsumerWidget {
       ),
       floatingActionButton: FloatingActionButton(
           onPressed: () {
-            ref.invalidate(randomNameProvider);
-            // ref
-            //     .read(randomNameProvider.notifier)
-            //     .update((state) => state.toUpperCase());
+            // ref.invalidate(userNamegProvider);
+            ref.read(userNamegProvider.notifier).updateName();
           },
           child: const Icon(Icons.refresh_rounded)),
     );

@@ -23,6 +23,11 @@ Clone the repository by running the following command in your terminal:
     git clone https://link-to-your-repository.git
 ```
 
+## Execute build runner
+```
+dart run build watch
+```
+
 ### Run the tests
 
 Go to the project root and execute the following command in the terminal to run the tests:

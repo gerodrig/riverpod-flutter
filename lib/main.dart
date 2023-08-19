@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:river_app/config/config.dart';
-import 'package:river_app/presentation/providers/state_provider.dart';
+// import 'package:river_app/presentation/providers/state_provider.dart';
+import 'package:river_app/presentation/providers/state_providers.dart';
 
 void main() {
   runApp(const ProviderScope(child: MainApp()));
@@ -14,7 +15,7 @@ class MainApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appRouter = ref.watch(appRouterProvider);
-    final isDarkmode = ref.watch(isDarkModeProvider);
+    final isDarkmode = ref.watch(darkmodegProvider);
 
     return MaterialApp.router(
       title: 'Riverpod Providers',
